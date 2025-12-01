@@ -13,36 +13,36 @@ export const canvas = document.createElement("canvas");
 
 let balls: Ball[] = [];
 for (let i = 0; i < PARTICLE_COUNT; i++) {
-    balls.push(new Ball());
+  balls.push(new Ball());
 }
 
 const initialSetup = () => {
-    canvas.width = CANVAS_WIDTH;
-    canvas.height = CANVAS_HEIGHT;
+  canvas.width = CANVAS_WIDTH;
+  canvas.height = CANVAS_HEIGHT;
 
-    const app = document.getElementById("app");
-    app?.append(canvas);
+  const app = document.getElementById("app");
+  app?.append(canvas);
 
-    drawBall(canvas, [...balls]);
+  drawBall(canvas, [...balls]);
 };
 
 const startSimulation = (balls: Ball[]) => {
-    initialSetup();
-    const newCanvas = document.createElement("canvas");
-    newCanvas.width = CANVAS_WIDTH;
-    newCanvas.height = CANVAS_HEIGHT;
-    const start = () => {
-        for (let i = 0; i < balls.length; i++) {
-            const ball = balls[i];
-            ball.moveBall();
-            for (let j = i + 1; j < balls.length; j++) {
-                ball.detectBallCollision(balls[j]);
-            }
-            drawBall(newCanvas, [ball]);
-        }
-        requestAnimationFrame(() => startSimulation([...balls]));
-    };
-    start();
+  initialSetup();
+  const newCanvas = document.createElement("canvas");
+  newCanvas.width = CANVAS_WIDTH;
+  newCanvas.height = CANVAS_HEIGHT;
+  const start = () => {
+    for (let i = 0; i < balls.length; i++) {
+      const ball = balls[i];
+      ball.moveBall();
+      for (let j = i + 1; j < balls.length; j++) {
+        ball.detectBallCollision(balls[j]);
+      }
+      drawBall(newCanvas, [ball]);
+    }
+    requestAnimationFrame(() => startSimulation([...balls]));
+  };
+  start();
 };
 
 requestAnimationFrame(() => startSimulation([...balls]));
